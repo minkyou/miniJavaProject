@@ -1,10 +1,9 @@
-package com.mini.javaProject.client;
+package com.mini.javaProject.server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 public class DBConnection {
 	private static DBConnection dbc = new DBConnection();	// Singleton1
@@ -59,7 +58,26 @@ public class DBConnection {
 //		return employeeList;
 //	}
 //	
-	public UsersDTO selectIdOne(String userId, String userPw) throws Exception {
+	public UsersDTO checkUserOne(String userId, String userPw) throws Exception {
+		con = this.getConnection();
+		pstmt = con.prepareStatement("SELECT id, pw FROM users WHERE id = ? and pw = ?");
+		pstmt.setString(1, userId);
+		pstmt.setString(2, userPw);
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()){
+			usrDto = new UsersDTO();
+			usrDto.setId(rs.getString("id"));
+			usrDto.setPw(rs.getString("pw"));
+			System.out.println("DBC 쪽: "+usrDto);
+		}
+		
+		streamClose();
+		
+		return usrDto;
+	}
+	
+	public UsersDTO selectOne(String userId, String userPw) throws Exception {
 		con = this.getConnection();
 		pstmt = con.prepareStatement("SELECT id, pw FROM users WHERE id = ? and pw = ?");
 		pstmt.setString(1, userId);

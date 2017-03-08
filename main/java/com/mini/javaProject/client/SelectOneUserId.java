@@ -9,12 +9,12 @@ public class SelectOneUserId {
 	UsersDTO usrDto;
 	
 	public SelectOneUserId(String userId) {
-		try {
-			usrDto = dbc.selectIdOne(userId);
-			System.out.println(usrDto); 	// toString()
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			usrDto = dbc.selectIdOne(userId);
+//			System.out.println(usrDto); 	// toString()
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 //	public void selectOne() {

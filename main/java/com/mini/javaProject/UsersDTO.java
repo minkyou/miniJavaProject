@@ -1,10 +1,10 @@
-package com.mini.javaProject.client;
+package com.mini.javaProject;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class UsersDTO implements Serializable {
-	
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String pw;
 	private String name;

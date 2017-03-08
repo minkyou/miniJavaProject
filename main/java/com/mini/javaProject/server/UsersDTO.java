@@ -1,4 +1,4 @@
-package com.mini.javaProject.client;
+package com.mini.javaProject.server;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

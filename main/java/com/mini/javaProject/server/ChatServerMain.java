@@ -21,8 +21,11 @@ public class ChatServerMain {
 				System.out.println("서버 대기중");
 				socket = serverSocket.accept();
 				ChatThread chatThread = new ChatThread(socket);
-				chatManage.addChatThread(chatThread);
+				chatManage.addBeforeLoginThread(chatThread);	// 로그인창 접속
+				System.out.println("chatThread.start()");
 				chatThread.start();
+//				chatManage.addChatThread(chatThread);			// 채팅창 접속
+//				chatThread.start();								// 채팅창 접속 후 while()
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

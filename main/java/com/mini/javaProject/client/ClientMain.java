@@ -6,7 +6,6 @@ public class ClientMain {
 		ClientLogin cl = new ClientLogin();
 		cl.setBounds(400, 100, 228, 122);
 		cl.setVisible(true);
-
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.mini.javaProject.client;
+package com.mini.javaProject.server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class DBConnection {
-	private static DBConnection dbc = new DBConnection();	// Singleton1
+import com.mini.javaProject.common.UsersDTO;
+
+public class ServerDBConnection {
+	private static ServerDBConnection serverDbc = new ServerDBConnection();
 	PreparedStatement pstmt;
 	Connection con;
 	ResultSet rs;
@@ -15,15 +17,15 @@ public class DBConnection {
 //	EmployeesDTO eld;
 //	ArrayList<EmployeesDTO> employeeList;
 	
-	private DBConnection() {
+	private ServerDBConnection() {
 		
 	}
 
-	public static DBConnection getInstance() {				// Singleton2
-		if(dbc == null) {
-			dbc = new DBConnection();
+	public static ServerDBConnection getInstance() {
+		if(serverDbc == null) {
+			serverDbc = new ServerDBConnection();
 		}
-		return dbc;
+		return serverDbc;
 	}
 	
 	private Connection getConnection() throws Exception {	
@@ -59,23 +61,26 @@ public class DBConnection {
 //		return employeeList;
 //	}
 //	
-	public UsersDTO selectIdOne(String userId, String userPw) throws Exception {
+	public boolean userSelectOne(String userId, String userPw) throws Exception {
 		con = this.getConnection();
 		pstmt = con.prepareStatement("SELECT id, pw FROM users WHERE id = ? and pw = ?");
 		pstmt.setString(1, userId);
 		pstmt.setString(2, userPw);
 		rs = pstmt.executeQuery();
+		boolean check = true;
 		
 		if(rs.next()){
 			usrDto = new UsersDTO();
 			usrDto.setId(rs.getString("id"));
 			usrDto.setPw(rs.getString("pw"));
-			System.out.println("DBC 쪽: "+usrDto);
+//			System.out.println("serverDbc 쪽: " + usrDto);
+		} else {
+			check = false;
 		}
 		
 		streamClose();
 		
-		return usrDto;
+		return check;
 	}
 //	
 //	public int insert(EmployeesDTO eld) throws Exception {
@@ -100,6 +105,7 @@ public class DBConnection {
 //		return result;
 //	}
 	
+	// ResultSet 종료
 	public void streamClose() {
 		try{
 			if(rs != null){

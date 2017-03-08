@@ -12,6 +12,13 @@ public class ChatManage extends Vector<ChatThread> {
 
 	private static final long serialVersionUID = 1L;
 
+	// Login 전 접속 대기자
+	public synchronized void addBeforeLoginThread(ChatThread thread) {
+		this.add(thread);
+		System.out.println("[서버]: " + this.size() + "명 접속 대기 중입니다.");
+	}
+	
+	// Login 후
 	public synchronized void addChatThread(ChatThread thread) {
 		this.add(thread);
 		System.out.println("[서버]: " + this.size() + "명 접속해있습니다.");
@@ -22,7 +29,7 @@ public class ChatManage extends Vector<ChatThread> {
 		System.out.println("[서버]: " + this.size() + "명 접속해있습니다.");
 	}	
 
-	// Iterator�� �̿��ϴ� ���
+	// Message Broadcasting
 	public synchronized void sendAllMessage(String msg) {
 		Iterator<ChatThread> iterator= this.iterator();
 		
